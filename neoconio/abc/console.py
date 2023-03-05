@@ -8,23 +8,11 @@ import neoconio.abc.runtime
 import neoconio.abc.dataclass
 import neoconio.colors
 
-create_empty_matrix = lambda cols, rows, value: [[value for _ in range(cols)] for _ in range(rows)]
-
 
 class Console:
     U_CHR_MAX = 255
     DEFAULT_TITLE = ""
     DEFAULT_SIZE = 640, 480
-
-    def __init__(self, cols: int = 80, rows: int = 30):
-        self.__runtime = None
-        self.__current_cursor = 0, 0
-        self.__title = Console.DEFAULT_TITLE
-        self.__font_filename = ''
-        self.__matrix_shape = cols, rows
-        self.__matrix_chr = create_empty_matrix(cols, rows, ' ')
-        self.__matrix_colors_foreign = create_empty_matrix(cols, rows, neoconio.colors.Color.WHITE)
-        self.__matrix_colors_background = create_empty_matrix(cols, rows, neoconio.colors.Color.BLACK)
 
     @abc.abstractmethod
     def set_runtime(self, runtime: neoconio.abc.runtime.RuntimeLoop): ...
