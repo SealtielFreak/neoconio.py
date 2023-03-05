@@ -1,14 +1,6 @@
 import typing
 
-from neoconio.console import PygameConsole
-
-try:
-    import pygame
-
-    Console = PygameConsole
-
-except ImportError as e:
-    raise e
+from neoconio.backend import Console
 
 __console = Console(80, 30)
 
