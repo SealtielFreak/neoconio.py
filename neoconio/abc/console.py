@@ -1,11 +1,8 @@
 import abc
-import dataclasses
 import typing
 
-import time
-
-import neoconio.abc.runtime
 import neoconio.abc.dataclass
+import neoconio.abc.runtime
 import neoconio.colors
 
 
@@ -16,11 +13,11 @@ class Console:
 
     @abc.abstractmethod
     def set_runtime(self, runtime: neoconio.abc.runtime.RuntimeLoop): ...
-        
+
     @property
     @abc.abstractmethod
     def runtime(self): ...
-    
+
     @abc.abstractmethod
     def main_loop(self, target): ...
 

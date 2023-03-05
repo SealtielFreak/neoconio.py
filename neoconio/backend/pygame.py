@@ -3,8 +3,8 @@ import threading
 
 import pygame
 
-import neoconio.abc.thread_safe_console
 import neoconio.abc.console
+import neoconio.abc.thread_safe_console
 
 
 class PygameConsole(neoconio.abc.thread_safe_console.ThreadSafeConsole):

@@ -1,5 +1,4 @@
 import threading
-import typing
 
 import pygame
 
@@ -19,7 +18,7 @@ class PygameConsole(Console):
         def init_font_map(filename):
             if filename == "":
                 raise f"Invalid filename: '{filename}'"
-            
+
             font = pygame.font.Font(filename, 16)
             matrix_map_chr = [None] * Console.U_CHR_MAX
 
@@ -48,10 +47,10 @@ class PygameConsole(Console):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                
+
                 if self.runtime:
                     self.runtime.event(event)
-            
+
             if self.runtime:
                 self.runtime.update()
 
@@ -66,11 +65,11 @@ class PygameConsole(Console):
                     if x >= screen.get_width():
                         x = 0
                         y += surface.get_height()
-            
+
             if self.runtime:
                 self.runtime.render(screen)
-            
+
             pygame.display.flip()
             clock.tick(PygameConsole.LIMIT_FRAMERATE)
-        
+
         pygame.quit()

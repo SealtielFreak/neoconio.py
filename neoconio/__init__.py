@@ -1,8 +1,6 @@
 import typing
 
-
 from neoconio.backend import Console
-
 
 __console = Console(80, 30)
 
