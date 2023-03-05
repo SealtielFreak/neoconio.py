@@ -3,11 +3,23 @@ from setuptools import setup, find_packages
 setup(
     name='neoconio',
     version='0.1',
-    description='Paquete de Python para neoconio',
-    author='Tu nombre',
-    packages=find_packages(include=["neoconio", "neoconio.*"]),
-    python_requires='>=3.8',
+    packages=find_packages(),
+    author='SealtielFreak',
     install_requires=[
-        # Agrega las dependencias necesarias aquí
+        # Agrega aquí las dependencias del paquete
     ],
+    extras_require={
+        'dev': [
+
+        ]
+    },
+    package_data={
+        'neoconio': [
+            'neoconio/*',
+            'examples/*'
+        ]
+    },
+    classifiers=[
+        'Programming Language :: Python :: 3.8'
+    ]
 )
