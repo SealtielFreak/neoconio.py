@@ -39,6 +39,8 @@ class ThreadSafeConsole(neoconio.abc.console.Console):
     DEFAULT_SIZE = 640, 480
 
     def __init__(self, cols: int = 80, rows: int = 30):
+        self.current_colors = [neoconio.colors.Color.BLACK, neoconio.colors.Color.WHITE]
+
         self.__resizable = True
         self.__runtime = None
         self.__current_cursor = 0, 0
@@ -46,8 +48,8 @@ class ThreadSafeConsole(neoconio.abc.console.Console):
         self.__font_filename = ''
         self.__shape = cols, rows
         self.__matrix = zero_array2d(cols, rows, ' ')
-        self.__matrix_colors_fg = zero_array2d(cols, rows, neoconio.colors.Color.WHITE)
-        self.__matrix_colors_bk = zero_array2d(cols, rows, neoconio.colors.Color.BLACK)
+        # self.__matrix_colors_fg = zero_array2d(cols, rows, neoconio.colors.Color.WHITE)
+        # self.__matrix_colors_bk = zero_array2d(cols, rows, neoconio.colors.Color.BLACK)
 
     @property
     def resizable(self) -> bool:
@@ -169,10 +171,10 @@ class ThreadSafeConsole(neoconio.abc.console.Console):
         pass
 
     def textbackground(self, color: neoconio.colors.Color) -> None:
-        pass
+        self.current_colors[0] = color
 
     def textcolor(self, color: neoconio.colors.Color) -> None:
-        pass
+        self.current_colors[1] = color
 
     def wherex(self) -> int:
         return self.__current_cursor[0]

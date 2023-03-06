@@ -90,6 +90,9 @@ class PygameConsole(neoconio.abc.thread_safe_console.ThreadSafeConsole):
             for y, row in enumerate(self.matrix):
                 for x, _chr in enumerate(row):
                     if _chr in map_chr.keys():
+                        if _chr in [' ', '']:
+                            continue
+
                         surface = map_chr[_chr]
                         screen.blit(surface, (x * surface.get_width(), y * surface.get_height()))
 
