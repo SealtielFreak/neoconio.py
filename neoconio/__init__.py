@@ -252,6 +252,7 @@ def set_main_loop_thread(target):
     thread.start()
 
     size = font.render(' ', True, (0, 0, 0)).get_size()
+    rect = font.render(' ', True, (0, 0, 0)).get_rect()
 
     while running:
         pygame.display.set_caption(console.titlewindow)
@@ -287,7 +288,7 @@ def set_main_loop_thread(target):
                 surface.fill(pygame.Color(_chr.background))
                 surface.blit(surface_chr, (0, 0))
 
-                screen.blit(surface, (x * size[0], y * size[1]))
+                screen.blit(surface, (x * size[0], y * size[1]), rect)
 
         pygame.display.update()
         clock.tick(FRAMERATE_LIMIT)
