@@ -61,6 +61,7 @@ class BufferConsole:
     bold: bool = False
     italic: bold = False
     background_buffer: str = 'black'
+    titlewindow: str = "neoconio"
 
 
 empty_array2d = lambda size: zero_array2d(*size, BufferCharacter())
@@ -166,7 +167,7 @@ def scalewindow(scale): ...
 
 
 def titlewindow(title) -> None:
-    console.matrix.title = title
+    console.titlewindow = title
 
 
 def refresh(): ...
@@ -253,6 +254,8 @@ def set_main_loop_thread(target):
     size = font.render(' ', True, (0, 0, 0)).get_size()
 
     while running:
+        pygame.display.set_caption(console.titlewindow)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False

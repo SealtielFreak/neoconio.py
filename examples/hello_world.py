@@ -12,13 +12,15 @@ ship = (
 def main():
     x, y = 0, 0
 
+    titlewindow("Hello world")
+
     while True:
         textbackground('black')
         cputsxy(0, 0, "Hello world")
 
         italichigh()
         textbackground('red')
-        cputsxy(0, 1, "Hello world")
+        cputsxy(0, 1, f"current position: {x, y}")
         italiclow()
 
         k = kbhit()
