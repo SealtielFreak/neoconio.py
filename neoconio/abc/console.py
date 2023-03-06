@@ -7,9 +7,17 @@ import neoconio.colors
 
 
 class Console:
-    U_CHR_MAX = 255
+    U_CHR_MAX = 255 * 2
     DEFAULT_TITLE = ""
     DEFAULT_SIZE = 640, 480
+
+    @property
+    @abc.abstractmethod
+    def resizable(self) -> bool: ...
+
+    @resizable.setter
+    @abc.abstractmethod
+    def resizable(self, _resizable: bool): ...
 
     @abc.abstractmethod
     def set_runtime(self, runtime: neoconio.abc.runtime.RuntimeLoop): ...
@@ -82,7 +90,7 @@ class Console:
     def gotoxy(self, x: int, y: int) -> None: ...
 
     @abc.abstractmethod
-    def print(self, _str: str): ...
+    def printf(self, _str: str, *args, **kwargs): ...
 
     @abc.abstractmethod
     def cputsxy(self, x: int, y: int, _str: str) -> None: ...

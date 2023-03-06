@@ -7,7 +7,30 @@ import neoconio.abc.dataclass
 import neoconio.abc.runtime
 import neoconio.colors
 
-empty_matrix = lambda cols, rows, value: [[value for _ in range(cols)] for _ in range(rows)]
+zero_array2d = lambda cols, rows, value: [[value for _ in range(cols)] for _ in range(rows)]
+
+
+def memset_array2d(a, b):
+    for y, row in enumerate(a):
+        for x, c in enumerate(a):
+            try:
+                b[y][x] = a[y][x]
+            except IndexError:
+                pass
+
+    return b
+
+
+def check_array2d(a, b):
+    if len(a) != len(b) or len(a[0]) != len(b[0]):
+        return False
+
+    for i in range(len(a)):
+        for j in range(len(a[0])):
+            if a[i][j] != b[i][j]:
+                return False
+
+    return True
 
 
 class ThreadSafeConsole(neoconio.abc.console.Console):
@@ -16,14 +39,23 @@ class ThreadSafeConsole(neoconio.abc.console.Console):
     DEFAULT_SIZE = 640, 480
 
     def __init__(self, cols: int = 80, rows: int = 30):
+        self.__resizable = True
         self.__runtime = None
         self.__current_cursor = 0, 0
         self.__title = ThreadSafeConsole.DEFAULT_TITLE
         self.__font_filename = ''
         self.__shape = cols, rows
-        self.__matrix = empty_matrix(cols, rows, ' ')
-        self.__matrix_colors_fg = empty_matrix(cols, rows, neoconio.colors.Color.WHITE)
-        self.__matrix_colors_bk = empty_matrix(cols, rows, neoconio.colors.Color.BLACK)
+        self.__matrix = zero_array2d(cols, rows, ' ')
+        self.__matrix_colors_fg = zero_array2d(cols, rows, neoconio.colors.Color.WHITE)
+        self.__matrix_colors_bk = zero_array2d(cols, rows, neoconio.colors.Color.BLACK)
+
+    @property
+    def resizable(self) -> bool:
+        return self.__resizable
+
+    @resizable.setter
+    def resizable(self, _resizable: bool):
+        self.__resizable = _resizable
 
     @property
     def cursor(self):
@@ -69,7 +101,8 @@ class ThreadSafeConsole(neoconio.abc.console.Console):
         return self.__title
 
     def resize(self, columns: int, rows: int) -> None:
-        self.__current_cursor = columns, rows
+        self.__shape = columns, rows
+        self.__matrix = memset_array2d(self.matrix, zero_array2d(columns, rows, ' '))
 
     def refresh(self) -> int:
         pass
@@ -84,7 +117,7 @@ class ThreadSafeConsole(neoconio.abc.console.Console):
         pass
 
     def clrscr(self) -> None:
-        self.__matrix = empty_matrix(*self.buffersize, ' ')
+        self.__matrix = zero_array2d(*self.buffersize, ' ')
 
     def delline(self) -> None:
         pass
@@ -102,16 +135,29 @@ class ThreadSafeConsole(neoconio.abc.console.Console):
         pass
 
     def gotoxy(self, x: int, y: int) -> None:
-        self.__current_cursor = [x, y]
+        self.__current_cursor = [x % self.shape[0], y % self.shape[1]]
 
-    def print(self, _str: str):
-        pass
+    def printf(self, _str: str, *args, **kwargs):
+        self.cputsxy(self.wherex(), self.wherey(), _str)
 
     def cputsxy(self, x: int, y: int, _str: str) -> None:
-        pass
+        for _chr in _str:
+            x += 1
+
+            if _chr == '\n':
+                _chr = ''
+                y += 1
+                x = 0
+
+            self.putchxy(x, y, _chr)
 
     def putchxy(self, x: int, y: int, _chr: chr) -> None:
-        self.matrix[y][x] = _chr
+        self.gotoxy(x, y)
+
+        try:
+            self.matrix[self.wherey()][self.wherex()] = _chr
+        except IndexError:
+            pass
 
     def _setcursortype(self, type: int) -> None:
         pass
@@ -144,7 +190,7 @@ class ThreadSafeConsole(neoconio.abc.console.Console):
         pass
 
     def delay(self, ms: int) -> None:
-        time.sleep(1.0 / ms)
+        time.sleep(ms / 1000)
 
     def switchbackground(self, color: neoconio.colors.Color) -> None:
         pass

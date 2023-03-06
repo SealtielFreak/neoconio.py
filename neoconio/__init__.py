@@ -6,7 +6,7 @@ __console = Console(80, 30)
 
 
 def getbuffersize() -> typing.Tuple[int, int]:
-    pass
+    return __console.getbuffersize()
 
 
 def wasinit() -> int:
@@ -22,23 +22,23 @@ def quitconio() -> None:
 
 
 def scalewindow(scale: int) -> None:
-    pass
+    __console.scalewindow(scale)
 
 
 def titlewindow(title: str) -> None:
-    pass
+    __console.titlewindow(title)
 
 
 def loadfont(filename: str) -> int:
-    pass
+    __console.set_filename_font(filename)
 
 
 def resize(columns: int, rows: int) -> None:
-    pass
+    __console.resize(columns, rows)
 
 
 def refresh() -> int:
-    pass
+    return __console.refresh()
 
 
 def gettextinfo():
@@ -50,43 +50,40 @@ def inittextinfo() -> None:
 
 
 def clreol() -> None:
-    pass
+    __console.clreol()
 
 
 def clrscr() -> None:
-    pass
+    __console.clrscr()
 
 
 def delline() -> None:
-    pass
+    __console.delline()
 
 
 def insline() -> None:
-    pass
+    __console.insline()
 
 
-def _conio_gettext(left: int, top: int, right: int, bottom: int, char_info) -> None:
-    pass
+def _conio_gettext(left: int, top: int, right: int, bottom: int, char_info) -> None: ...
 
 
-def puttext(left: int, top: int, right: int, bottom: int, char_info) -> None:
-    pass
+def puttext(left: int, top: int, right: int, bottom: int) -> None: ...
 
 
-def movetext(left: int, top: int, right: int, bottom: int, destleft: int, desttop: int) -> None:
-    pass
+def movetext(left: int, top: int, right: int, bottom: int, destleft: int, desttop: int) -> None: ...
 
 
 def gotoxy(x: int, y: int) -> None:
-    pass
+    __console.gotoxy(x, y)
 
 
 def cputsxy(x: int, y: int, _str: str) -> None:
-    pass
+    __console.cputsxy(x, y, _str)
 
 
-def putchxy(x: int, y: int, ch: chr) -> None:
-    pass
+def putchxy(x: int, y: int, _chr: chr) -> None:
+    __console.putchxy(x, y, _chr)
 
 
 def _setcursortype(type: int) -> None:
@@ -94,64 +91,64 @@ def _setcursortype(type: int) -> None:
 
 
 def textattr(attr: int) -> None:
-    pass
+    __console.textattr(attr)
 
 
 def normvideo() -> None:
-    pass
+    __console.normvideo()
 
 
 def textbackground(color: int) -> None:
-    pass
+    __console.textbackground(color)
 
 
 def textcolor(color: int) -> None:
-    pass
+    __console.textcolor(color)
 
 
 def wherex() -> int:
-    pass
+    return __console.wherex()
 
 
 def wherey() -> int:
-    pass
+    return __console.wherey()
 
 
-def getpass(prompt: str, str: str) -> str:
-    pass
+def getpass(prompt: str, _str: str) -> str:
+    return __console.getpass(prompt, _str)
 
 
 def highvideo() -> None:
-    pass
+    __console.highvideo()
 
 
 def lowvideo() -> None:
-    pass
+    __console.lowvideo()
 
 
 def delay(ms: int) -> None:
-    pass
+    __console.delay(ms)
 
 
 def switchbackground(color: int) -> None:
-    pass
+    __console.switchbackground(color)
 
 
 def flashbackground(color: int, ms: int) -> None:
-    pass
+    __console.flashbackground(color, ms)
 
 
 def clearkeybuf() -> None:
-    pass
+    __console.clearkeybuf()
 
 
 def kbhit() -> int:
-    pass
+    return __console.kbhit()
 
 
 def getch() -> int:
-    pass
+    return __console.getch()
 
 
 def getche() -> int:
-    pass
+    return __console.getche()
